@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    ports:
+      - 80
+      - 443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.a mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mydb
+    ports:
+      - "3306:3306"
+    networks:
+      - my-network
+    volumes:
+      - mysql-data:/var/lib/mysqlspnet/https:/https:ro
